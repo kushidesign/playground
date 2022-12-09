@@ -1,6 +1,6 @@
 # Playground
 
-Playground is an interactive documentation system for ClojureScript web UI projects.
+Playground is an interactive documentation system for ClojureScript UI projects.
 
 ## Usage
 
