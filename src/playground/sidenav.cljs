@@ -65,11 +65,11 @@
             (state/nav! fname)))
        (if menu* 0 100)))))
 
-
 (defn sidenav-section-items [section-opts items]
   (into [:ul]
         (for [{:keys [fname label href focused?]} items
-              :let [focused? (and (:section-focused? section-opts) focused?)]]
+              :let [focused? (and (:section-focused? section-opts) focused?)
+                    hashed-href (str "#" fname)]]
           [:li
            [:a (sx
                 :.pointer
@@ -82,7 +82,7 @@
                             :bisc          (if focused? :black :transparent)
                             :dark:bisc     (if focused? :white :transparent)
                             :hover:opacity (when-not focused? 0.5)}
-                 :href     (str "/#" fname)
+                 :href     hashed-href
                  :on-click (partial section-item-on-click href fname)})
             label]])))
 
