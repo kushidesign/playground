@@ -34,7 +34,8 @@
  [:span (sx :.flex-row-fs :ai--c)
   [:code s]
   [copy-to-clipboard-button
-   (sx {:on-click #(copy-to-clipboard s)})]])
+   {:on-click          #(copy-to-clipboard s)
+    :-tooltip-placement :inline-end}]])
 
 (defn color-modal [{:keys [k hsl color-name]}]
   [modal
@@ -47,9 +48,10 @@
                                  :ws--n
                                  {:on-click open-kushi-modal})
                        k
-                       [mui-icon (sx :.medium :mis--0.5em) :open-in-new]]
+                       [mui-icon (sx :mis--0.5em) :help-outline]]
         :-scrim-attrs (sx ["dark:bgc" '(rgba 30 30 30 0.86)])
         :-panel-attrs (sx :h--600px
+                          :max-width--100vw
                           :dark:bgc--black)})
    [:div
     (sx :.flex-col-sa
@@ -96,7 +98,7 @@
                   :dark:bgc--black
                   :dark:outline--1rem:solid:black
                   :mbs--115px)
-         [:h3 (sx :.xlarge :tt--capitalize  :mbe--2.5em) color-name]]
+         [:h3 (sx :.xlarge :.wee-bold :tt--capitalize :mbe--2.5em) color-name]]
         (for [[k v] scale
               :let  [hsl (if (number? v) (str v) (name v))]]
           ^{:key hsl}
