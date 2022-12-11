@@ -85,31 +85,32 @@
       (when-let [els (.querySelectorAll (js/document.getElementById component-id)
                                         (str ".kushi-" nm))]
 
-        (js/console.log "component-id: " nm)
-        (js/console.log "nm: " nm)
-        (js/console.log (js/document.getElementById component-id))
-        (js/console.log "els: " els)
-        (js/console.log "els count: " (.-length els))
-        (js/console.log "flavors: " flavors)
-        (js/console.log "variant category: " variant-category)
-        (js/console.log "@controls-by-type" @*controls-by-type)
+        #_(js/console.log
+         {:component-id      nm
+          :nm                nm
+          :component-e       (js/document.getElementById component-id)
+          :els               els
+          :el-count          (.-length els)
+          :flavors           flavors
+          :variant-category  variant-category
+          :*controls-by-type @*controls-by-type})
 
         (let [class-to-remove (get @*controls-by-type variant-category)
               class-to-add    step]
           (doseq [el els]
-            (js/console.log "\n" (.-innerText el) (str " \"" (.-classList el) "\""))
+            ;; (js/console.log "\n" (.-innerText el) (str " \"" (.-classList el) "\""))
             (when class-to-remove
-                (js/console.log "need to remove class: " class-to-remove)
-                (js/console.log "remove classes: " flavors)
+              ;; (js/console.log "need to remove class: " class-to-remove)
+              ;; (js/console.log "remove classes: " flavors)
               )
             (when class-to-add
-                (js/console.log "adding class: " class-to-add)
+              ;; (js/console.log "adding class: " class-to-add)
               )
             (when (and class-to-add class-to-remove)
               (apply dom/remove-class (concat [el] flavors))
               (dom/add-class el class-to-add))
 
-            (js/console.log (str "associng " step " with " variant-category " on *controls-by-type") )
+            ;; (js/console.log (str "associng " step " with " variant-category " on *controls-by-type") )
             (swap! *controls-by-type
                    assoc
                    variant-category
@@ -195,9 +196,12 @@
 
 
 
-(defn insert-utility-classes-into-snippet
-  [coll {:keys [*controls-by-type nm defaults *hide-default-classes?]}]
+(defn- current+preview-classes
+  [{:keys [*controls-by-type
+           defaults
+           *hide-default-classes?]}]
   (let [controls-by-type* @*controls-by-type
+        current-classes  (vals controls-by-type*)
         controls-by-type (reduce (fn [acc [k v]]
                                    (let [dv*              (k defaults)
                                          dv               (if (keyword? dv*) (name dv*) (str dv*))
@@ -211,26 +215,42 @@
                                        (assoc acc k v))))
                                  {}
                                  controls-by-type*)
-        current-classes (vals controls-by-type*)
-        preview-classes (filter #(not= % "none") (vals controls-by-type))]
+        preview-classes  (filter #(not= % "none") (vals controls-by-type))]
+    (keyed current-classes preview-classes)))
 
-    (if (seq current-classes)
-      (walk/postwalk #(if (and (vector? %) (= (first %) (symbol nm)))
-                        (let [[compo & more]               %
-                              [attr children]              (sx-attr+children more)
-                              utility-classes              (keep (fn [x] (keyword (str "." x))) preview-classes)
-                              rest-of-attr                 (if (map? attr) [attr] (rest attr))
-                              utility-classes+rest-of-attr (concat utility-classes rest-of-attr)]
-                          #_(js/console.log :postwalk (keyed % compo more attr children utility-classes rest-of-attr utility-classes+rest-of-attr))
-                          #_(js/console.log :into (into []
-                                         (remove nil?
-                                                 (concat [compo
-                                                          (when (seq utility-classes+rest-of-attr)
-                                                            (cons 'sx (concat utility-classes rest-of-attr)))]
-                                                         children)))))
-                        %)
-                     coll)
-      coll)))
+
+(defn insert-utility-classes-into-snippet
+  [coll
+   {:keys [nm] :as m}]
+  (let [{:keys [current-classes preview-classes]} (current+preview-classes m)
+        ret (if (empty? current-classes)
+              coll
+              (walk/postwalk
+               #(if (and (vector? %) (= (first %) (symbol nm)))
+                  (let [[compo & more]               %
+                        [attr children]              (sx-attr+children more)
+                        utility-classes              (keep (fn [x] (keyword (str "." x))) preview-classes)
+                        rest-of-attr                 (if (map? attr) [attr] (rest attr))
+                        utility-classes+rest-of-attr (concat utility-classes rest-of-attr)
+                        ret                          (into []
+                                                           (remove nil?
+                                                                   (concat [compo
+                                                                            (when (seq utility-classes+rest-of-attr)
+                                                                              (cons 'sx (concat utility-classes rest-of-attr)))]
+                                                                           children)))]
+                    #_(js/console.log
+                     :postwalk
+                     (keyed %
+                            compo
+                            more
+                            attr
+                            children
+                            utility-classes
+                            rest-of-attr utility-classes+rest-of-attr))
+                    ret)
+                  %)
+               coll))]
+    ret))
 
 
 (defn insert-utility-classes-into-dom
@@ -262,7 +282,8 @@
                 utility-class-target]
     variants   :controls
     m*         :meta
-    stage-attr :stage}]
+    stage-attr :stage
+    :as m+}]
   (let [*editor                (atom nil)
         nm                     (util/meta->fname m*)
         utility-class-target   (or utility-class-target nm)
@@ -290,7 +311,16 @@
                                                pprint/pprint
                                                with-out-str
                                                (string/replace #"," "")))
-        demobox-st             (keyed variants *controls-by-type component-id snippet-id *editor current-snippet nm utility-class-target defaults)]
+        demobox-st             (keyed variants
+                                      *controls-by-type
+                                      component-id
+                                      snippet-id
+                                      *editor
+                                      current-snippet
+                                      nm
+                                      utility-class-target
+                                      defaults)
+        ]
     (r/create-class
      {:display-name         "example"
       :component-did-mount  (fn [_]
