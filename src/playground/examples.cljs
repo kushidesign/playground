@@ -266,7 +266,7 @@
     :meta     #'tag
     :stage    {:style {:min-height :135px}}
     :desc     ["A tag is a kind of label, often displayed together with other tags for categorization and context."]
-    :controls [:kind2 :shape :semantic :size :weight]
+    :controls [:kind :shape :semantic :size :weight]
     :defaults {:kind     :default
                :shape    :rounded
                :semantic :neutral
