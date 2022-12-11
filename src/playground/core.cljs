@@ -3,6 +3,8 @@
    [malli.dev.pretty :as pretty]
    [malli.core :as malli]
    [kushi.core :refer [sx merge-attrs]]
+   [kushi.color :refer [colors->tokens]]
+   [kushi.colors :as kushi.colors]
    [kushi.ui.button.core :refer [button]]
    [playground.examples :as examples]
    [playground.nav :as nav]
@@ -54,7 +56,7 @@
    (components-to-render coll []))
   ([coll syms]
    (let [idxs (map (partial component-by-index coll) syms)
-        ;; idxs [5]
+        ;; idxs [0]
          ret (cond-> coll
                (seq idxs) (filter-by-index idxs)
                true validated-components)]
@@ -150,33 +152,35 @@
                     (for [kw sem]
                       [button {:class [kw kind :medium]} "Hello"])))) ]]))
 
-
 ;; TODO - just get this from kushi.colors and mix with user-supplied?
 (defn color-scales2
-  [{:keys [colorlist tokens]}]
-  (let [coll (keep (fn [[k v]]
-                     (let [color*       (->> k name (re-find #"^--([a-zAZ-_]+)([0-9]+)$"))
-                           color-name   (some-> color* second)
-                           color-level  (some-> color* last js/parseInt)
-                           color-token? (contains? (into #{} colorlist) (keyword color-name))]
-                       (when color-token?
-                         {:color*      color*
-                          :color-name  color-name
-                          :color-level color-level
-                          :value       v
-                          :token       k})))
-                   (partition 2 tokens))
-        ret   (mapv #(let [scale (into []
-                                       (keep (fn [{:keys [color-name token value]}]
-                                               (when (= color-name (name %))
-                                                 [token value]))
-                                             coll))]
-                       {:color-name %
-                        :scale      scale})
-                    colorlist)]
+  [{:keys [colorlist]}]
+  (let [tokens (colors->tokens kushi.colors/colors {:format :css})
+        coll   (keep (fn [[k v]]
+                       (let [color*       (->> k name (re-find #"^--([a-zAZ-_]+)([0-9]+)$"))
+                             color-name   (some-> color* second)
+                             color-level  (some-> color* last js/parseInt)
+                             color-token? (contains? (into #{} colorlist) (keyword color-name))]
+                         (when color-token?
+                           {:color*      color*
+                            :color-name  color-name
+                            :color-level color-level
+                            :value       v
+                            :token       k})))
+                     (partition 2 tokens))
+        ret    (mapv #(let [scale (into []
+                                        (keep (fn [{:keys [color-name token value]}]
+                                                (when (= color-name (name %))
+                                                  [token value]))
+                                              coll))]
+                        {:color-name %
+                         :scale      scale})
+                     colorlist)]
     ret))
 
+;; TODO Make this work with anything user-supplied
 (def colorlist [:gray :red :orange :yellow :green :blue :purple :magenta :brown])
+
 (defn main-view
   [{:keys [
            site-header
@@ -192,7 +196,7 @@
            kushi-clojars
            kushi-about
            render
-           theme
+          ;;  theme
            hide-lightswitch?]
     :or   {render            []
            mobile-nav        nav/kushi-mobile-nav
@@ -226,8 +230,7 @@
 
         kushi-components        (merge kushi-components
                                        {:coll (components-to-render examples/components [])})
-        global-color-scales     (color-scales2 {:tokens    (:design-tokens theme)
-                                                   :colorlist colorlist})
+        global-color-scales     (color-scales2 {:colorlist colorlist})
         nav-opts                (keyed
                                  custom-components
                                  kushi-components
