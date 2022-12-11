@@ -279,7 +279,7 @@
                 :example (example2 [tag "xyz"])}
                {:label   "\"XYZ\""
                 :example (example2 [tag "XYZ"])}
-               {:label   "Longer text"
+               {:label   "Max-width example"
                 :example (example2 [tag (sx :max-width--140px) "My tag with longer text"])}]}
 
 
