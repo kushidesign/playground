@@ -9,4 +9,6 @@
                  [binaryage/devtools                    "1.0.3"]
                  [metosin/malli                         "0.8.4"]
                  [markdown-to-hiccup/markdown-to-hiccup "0.6.2"]]
-  :repl-options {:init-ns playground.core})
+  :repl-options {:init-ns playground.core}
+  :deploy-repositories [["clojars" {:url           "https://clojars.org/repo"
+                                    :sign-releases false}]])
