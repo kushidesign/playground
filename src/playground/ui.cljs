@@ -9,6 +9,7 @@
                :.large
                :.pointer
                :pb--0.5rem!important
+               :&_.kushi-mui-icon:m--0
                {:on-click #(lightswitch!)})
    [label (sx ["has-ancestor(.dark):display" :none]
               ["has-ancestor(.kushi-playground-mobile-nav):c" :white]
