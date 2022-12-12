@@ -16,7 +16,8 @@
   (let [{:keys [header]} &opts]
     [:section
     (merge-attrs
-     (sx :.transition
+     (sx 'playground-generic-intro-section
+         :.transition
          :bbe--:--divisor
          ;; dark theme
          :dark:bbe--:--divisor-dark
@@ -39,18 +40,21 @@
          ["has-ancestor(.kushi-colors)&_p.alias-token-scales:mbe" :0.3em])
      &attrs)
     [:div (sx
+           'intro-section-title-wrapper
            :.flex-col-fs
            :.xxlarge
            :.relative
            :w--100%
            :mbe--4.25rem)
      [title
-      (sx :pbs--2.25em
+      (sx 'intro-section-title
+          :pbs--2.25em
           :md:pbs--:--vp-top-header-padding-with-offset
           {:style {:transform '(translateX :-1.5px)}})
       header]]
     [:section
-     (sx :.normal
+     (sx 'intro-section-body
+         :.normal
          :.transition
         ;; :.medium
         ;; :lg:pie--5rem
@@ -75,6 +79,8 @@
 
    [:p.alias-token-scales
     "Alias token scales for "
+    [:code (sx :.code :ws--n) (str "--neutral")]
+    ", "
     [:code (sx :.code :ws--n) (str "--positive")]
     ", "
     [:code (sx :.code :ws--n) (str "--negative")]
@@ -97,7 +103,9 @@
            (alias-global-mapping-row a g)))
 
    [:p
-    "The utility classes"
+    "The utility classes "
+    [:code (sx :.neutral) ":.neutral"]
+    ", "
     [:code (sx :.positive) ":.positive"]
     ", "
     [:code (sx :.negative) ":.negative"]
@@ -201,7 +209,8 @@
            :target :_blank} "Readme"]
     " and the "
     [link {:href   "https://github.com/paintparty/kushi-quickstart"
-           :target :_blank}  "Quickstart repo"] "."]
+           :target :_blank}
+     "quickstart repo"] "."]
    [:p
     "In addition to providing robust css-in-cljs functionality, Kushi offers a basic suite of themeable, headless UI components for free. "
     "This set of building blocks consitutes a base for rolling your own design system."]
