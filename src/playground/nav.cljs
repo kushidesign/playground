@@ -37,8 +37,9 @@
          'kushi-playground-mobile-nav
          :.transition
          :.xlarge
-         :.relative
          :.flex-row-c
+         :.fixed
+         :zi--100
          :md:d--none
          :w--100%
          :padding-inline--:--page-padding-inline

@@ -6,7 +6,7 @@
    [kushi.color :refer [colors->tokens]]
    [kushi.colors :as kushi.colors]
    [kushi.ui.button.core :refer [button]]
-   [playground.examples :as examples]
+   [kushi.ui.examples :as examples]
    [playground.nav :as nav]
    [playground.about :as about]
    [playground.state :as state]
@@ -65,8 +65,10 @@
 (defn main-section [s & children]
   ^{:key s}
   [:div
-   {:class [(str s "-wrapper")
-            :kushi-main-section-wrapper]}
+   (sx 'kushi-main-section-wrapper
+       :mbs--155px
+       :md:mbs--0
+       {:class [(str s "-wrapper")]})
    (into [:section
           {:id    s
            :class [s :kushi-main-section]}]
@@ -113,7 +115,7 @@
             ["md:has-ancestor(.hide-lightswitch):d" :none]
             :md:d--block
             :position--fixed
-            :inset-inline--auto:1rem
+            :inset-inline--auto:0.75rem
             :inset-block--1rem:auto)
    [light-dark-mode-switch]])
 
@@ -169,9 +171,9 @@
                             :token       k})))
                      (partition 2 tokens))
         ret    (mapv #(let [scale (into []
-                                        (keep (fn [{:keys [color-name token value]}]
+                                        (keep (fn [{:keys [color-name token value color-level]}]
                                                 (when (= color-name (name %))
-                                                  [token value]))
+                                                  [token value color-level]))
                                               coll))]
                         {:color-name %
                          :scale      scale})
@@ -307,8 +309,8 @@
         [main-section
          "kushi-colors"
          [about/intro-section {:-header (:header kushi-colors)}
-          about/kushi-colors-about
-          [colors/color-rows global-color-scales]]]
+          about/kushi-colors-about]
+         [colors/color-rows global-color-scales]]
 
         :custom-typography
         [main-section

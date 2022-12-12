@@ -101,10 +101,12 @@
                        "has-ancestor(.mobile-subnav):fs"                  :--text-xsmall
                        "has-ancestor(.mobile-subnav):tt"                  :capitalize
                        "has-ancestor(.mobile-subnav):bgc"                 (if section-focused? :--gray100 :transparent)
+                       "dark:has-ancestor(.mobile-subnav):bgc"            (if section-focused? :--gray750 :transparent)
                        "has-ancestor(.mobile-subnav):border-radius"       :9999px
                        "has-ancestor(.mobile-subnav):border-inline-style" :solid
                        "has-ancestor(.mobile-subnav):biw"                 :8px
                        "has-ancestor(.mobile-subnav):bic"                 (if section-focused? :--gray100 :transparent)
+                       "dark:has-ancestor(.mobile-subnav):bic"            (if section-focused? :--gray750 :transparent)
                        "has-ancestor(.mobile-subnav):tuo"                 :3px}
             :on-click #(when-not target
                          (reset! state/*focused-section kw)
@@ -227,7 +229,6 @@
   [sidenav
    (sx 'mobile-subnav
        :d--flex
-       :md:d--none
        :jc--c
        :ai--c
        :position--relative
@@ -253,7 +254,14 @@
        :&_.kushi-treenav-section-level-1>a:mi--0:0.5em
        :&_.kushi-treenav-section-level-1>span:pi--0:1.5em
        :&_.collapse-all-control:d--none
-       {:-wrapper-attrs (sx :bbe--1px:solid:black
+       {:-wrapper-attrs (sx :.fixed
+                            :md:d--none
+                            :top--77px
+                            :w--100%
+                            :bgc--white
+                            :dark:bgc--:--gray1000
+                            :zi--100
+                            :bbe--1px:solid:black
                             :dark:bbe--1px:solid:white)})
    [:div (sx :.styled-scrollbars
              :flex-shrink--1
