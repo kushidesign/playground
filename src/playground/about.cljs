@@ -210,12 +210,12 @@
     " and the "
     [link {:href   "https://github.com/kushidesign/kushi-quickstart"
            :target :_blank}
-     "quickstart repo"] "."]
+     "Quickstart repo"] "."]
    [:p
     "In addition to providing robust css-in-cljs functionality, Kushi offers a basic suite of themeable, headless UI components for free. "
     "This set of building blocks consitutes a base for rolling your own design system."]
    [:p
-    "The components menu provides interactive documentation, detailed usage options, and snippet generation for easy inclusion of Kushi UI components in your own project."]])
+    "The components menu on this site provides interactive documentation, detailed usage options, and snippet generation for easy inclusion of Kushi UI components in your own project."]])
 
 
 (defn component-playground-about [{:keys [header]}]
