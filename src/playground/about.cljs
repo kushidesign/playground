@@ -187,7 +187,7 @@
                :target :_blank})
      "Fira Code"]
     " by default. These can be changed via the " [:code ":ui"] " entry in your theming config map. See example "
-    [link (sx {:href   "https://github.com/paintparty/kushi-quickstart/blob/main/src/main/starter/theme.cljc"
+    [link (sx {:href   "https://github.com/kushidesign/kushi-quickstart/blob/main/src/main/starter/theme.cljc"
                :target :_blank})
      "here."]]
 
@@ -205,10 +205,10 @@
     [link (sx {:href   "https://clojurescript.org/"
                :target :_blank}) "ClojureScript"] "."]
    [:p "For detailed docs, check out the "
-    [link {:href   "https://github.com/paintparty/kushi"
+    [link {:href   "https://github.com/kushidesign/kushi"
            :target :_blank} "Readme"]
     " and the "
-    [link {:href   "https://github.com/paintparty/kushi-quickstart"
+    [link {:href   "https://github.com/kushidesign/kushi-quickstart"
            :target :_blank}
      "quickstart repo"] "."]
    [:p
