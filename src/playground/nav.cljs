@@ -5,34 +5,9 @@
    [playground.ui :refer [light-dark-mode-switch]]
    [kushi.core :refer [sx]]))
 
-(defn kushi-title []
-  [title (sx 'playground-title
-             :.xxlarge
-             :>span:ai--baseline
-             :md:pbs--:--vp-top-header-padding-with-offset)
-   "Kushi"
-   [:span
-    (sx 'playground-title-version-number :.xxxsmall :mis--0.5rem)
-    "v1.0.0-alpha"]])
-
-(defn kushi-desktop-nav []
-  [:nav (sx
-         :.fixed
-         :.flex-row-sb
-         :d--none
-         :md:d--flex
-         :z--10
-         :w--100%
-         :bgc--white
-         :ai--c
-         :h--:--topnav-height
-         :bbe--4px:solid:#efefef
-         :p--0:1rem)
-   [kushi-title]
-   [links]])
 
 
-(defn kushi-mobile-nav []
+(defn kushi-mobile-nav [{:keys [site-header display-kushi-links-in-mobile-nav?]}]
   [:div (sx
          'kushi-playground-mobile-nav
          :.transition
@@ -55,9 +30,10 @@
          [:dark:&_.project-links:filter "invert(0) brightness(2)"])
    [:div
     (sx :.extra :.flex-row-sb :w--:--components-menu-width)
-    [kushi-title]
+    [site-header]
     [:div (sx :.flex-row-fs)
-     [links]
+     (when display-kushi-links-in-mobile-nav?
+       [links])
      [:span
       (sx :mis--0.75rem
           ["has-ancestor(.hide-lightswitch):d" :none])
