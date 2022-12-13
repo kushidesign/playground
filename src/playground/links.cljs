@@ -44,9 +44,9 @@
        attrs)]
      children)))
 
-(def link-data [{:href "https://github.com/paintparty/kushi"
+(def link-data [{:href "https://github.com/kushidesign/kushi"
                  :src  "graphics/github.svg"}
-                {:href "https://clojars.org/org.clojars.paintparty/kushi"
+                {:href "https://clojars.org/design.kushi/kushi"
                  :src "graphics/clojars-logo-bw2.png"}
                 #_{:href "https://twitter.svg"
                  :src "graphics/twitter.svg"}])
