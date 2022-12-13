@@ -71,8 +71,8 @@
      [:section
       (merge-attrs
        (sx
-        'subsection
-        :margin-block--4.5rem
+        'kushi-playground-subsection
+        :pb--4.5em:1em
         :&_p:fs--:--text-small
         :&_p:fw--:--text-normal
         :&_p:lh--1.70
@@ -83,7 +83,7 @@
         :&_.code.opt-type:bgc--transparent
         :&.description&_p:fs--:--text-medium)
        &attrs)
-      [:h3 (sx 'subsection-title :.xlarge :.wee-bold :margin-block--0:1.25rem) title]
+      [:h3 (sx 'kushi-playground-subsection-title :.xlarge :.wee-bold :margin-block--0:1.25rem) title]
       &children]))
 
 
