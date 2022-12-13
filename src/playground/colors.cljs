@@ -35,8 +35,7 @@
  [:span (sx :.flex-row-fs :ai--c)
   [:code s]
   [copy-to-clipboard-button
-   {:on-click          #(copy-to-clipboard s)
-    :-tooltip-placement :inline-end}]])
+   {:on-click          #(copy-to-clipboard s)}]])
 
 (defn color-modal
   [{:keys [k
