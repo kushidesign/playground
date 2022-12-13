@@ -185,6 +185,7 @@
 
 (defn main-view
   [{:keys [
+           main-view-attrs
            site-header
           ;; desktop-nav ; disable for now
            mobile-nav
@@ -199,7 +200,9 @@
            kushi-about
            render
           ;;  theme
-           hide-lightswitch?]
+           hide-lightswitch?
+           display-kushi-links-in-mobile-nav?
+           ]
     :or   {render            []
            mobile-nav        nav/kushi-mobile-nav
            custom-components nil
@@ -247,7 +250,8 @@
 
     [:div
      (merge-attrs main-view-outer-wrapper-attrs
-                  (when hide-lightswitch? {:class [:hide-lightswitch]}))
+                  (when hide-lightswitch? {:class [:hide-lightswitch]})
+                  main-view-attrs)
 
      [desktop-lightswitch]
 
@@ -265,7 +269,7 @@
      [:div
       main-view-wrapper-attrs
 
-      [mobile-nav]
+      [mobile-nav (keyed site-header display-kushi-links-in-mobile-nav?)]
 
       [mobile-subnav nav-opts]
 
