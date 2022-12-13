@@ -142,7 +142,9 @@
   {:header [:span.kushi-treenav-section-header
             (sx {:on-click (partial collapse-all-handler kw)})
             [:span (sx :mie--0.5em) title]
-            (when (and (state/section-focused? kw)
+            ;; Leave this out for now
+            ;; Maybe place next to sidenav focused sections?
+            #_(when (and (state/section-focused? kw)
                        (seq @state/*expanded-sections))
               [collapse-all-component-sections])]
    :kw     kw
