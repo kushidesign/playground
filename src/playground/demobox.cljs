@@ -402,7 +402,8 @@
                                       :inset-inline-end--0
                                       {:on-click #(copy-to-clipboard @current-snippet)})]]
 
-                                [:div (sx :mb--0.5rem :pis--5px)
+                                ;; Leave this out for now
+                                #_[:div (sx :mb--0.5rem :pis--5px)
                                  [checkbox {:value           (str  @*hide-default-classes?)
                                             :default-checked (str  @*hide-default-classes?)
                                             :on-change       #(reset! *hide-default-classes? (not @*hide-default-classes?))
