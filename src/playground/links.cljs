@@ -45,12 +45,12 @@
      children)))
 
 (def link-data [{:href "https://github.com/kushidesign/kushi"
-                 :src  "graphics/github.svg"}
+                 :src  "public/graphics/github.svg"}
                 {:href "https://clojars.org/design.kushi/kushi"
-                 :src "graphics/clojars-logo-bw2.png"}
+                 :on-error "this.onerror=null; this.src='graphics/clojars-logo-bw2.png'"
+                 :src "public/graphics/clojars-logo-bw2.png"}
                 #_{:href "https://twitter.svg"
                  :src "graphics/twitter.svg"}])
-
 (defn links []
   (into
    [:div
@@ -60,7 +60,7 @@
         :>a:display--inline-flex
         :>a:mis--0.75rem
         )]
-   (for [{:keys [href src]} link-data]
+   (for [{:keys [href on-error src]} link-data]
      [badge
       {:href href :target :_blank}
       [contained-image (sx :.grayscale :.small-badge {:src src})]])))
