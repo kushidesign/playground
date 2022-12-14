@@ -1,3 +1,4 @@
 {:lint-as {reagent.core/with-let clojure.core/let
            kushi.core/defclass   clojure.core/def
-           kushi.ui.core/defcom  clj-kondo.lint-as/def-catch-all}}
+           kushi.ui.core/defcom  clj-kondo.lint-as/def-catch-all
+           kushi.ui.core/defcom2  clj-kondo.lint-as/def-catch-all}}
