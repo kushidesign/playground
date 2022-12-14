@@ -177,7 +177,8 @@
            kushi-about]}]
   (into
    [:ul
-    (sx :pi--5px!important)
+    (sx :pi--5px!important
+        :md:pbe--50px!important)
     (xxxy custom-components :custom-components "Custom Components")
     (xxxy kushi-components :kushi-components "Base Kushi Components")
     (xxx custom-colors :custom-colors)
