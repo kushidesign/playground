@@ -44,16 +44,6 @@
 (defclass section-focused
   :bgc--#fafafa)
 
-(defclass headline
-  :ta--left
-  :w--100%
-  :ff--Inter|sys|sans-serif
-  :fw--900
-  :fs--24px
-  :tt--u
-  :font-style--italic
-  :mix-blend-mode--darken)
-
 (defclass kushi-opts-grid-row-item
   :padding-block--1.5em
   :bbe--1px:solid:#efefef
@@ -77,16 +67,6 @@
    :biss                    :solid
    :bisc                    :--gray300
    "has-ancestor(.dark):bisc" :--gray700})
-
-(defclass ggreen :c--green {:bgc :pink :sm:bb :1px:solid:#efefef})
-
-(defclass rred {:c :red})
-
-(defclass hi
-  :.ggreen
-  :.rred
-  :sm:bc--red
-  {:c :blue})
 
 (defclass kushi-treenav-section-level-1
   :mbs--1em
