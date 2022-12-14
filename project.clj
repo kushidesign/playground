@@ -1,4 +1,4 @@
-(defproject design.kushi/playground "0.1.2"
+(defproject design.kushi/playground "0.1.3"
   :description "Playground is an interactive documentation system for ClojureScript UI projects."
   :url "github.com/kushidesign/playground"
   :license {:name "EPL-2.0 OR GPL-2.0-or-later WITH Classpath-exception-2.0"
